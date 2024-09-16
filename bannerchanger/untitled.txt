@@ -1,0 +1,22 @@
+try:
+        # Get the current directory
+        corrn_folder = sub.check_output('pwd', shell=True, text=True).strip()
+        
+        # Define source and backup paths
+        source_file = '/data/data/com.termux/files/usr/etc/bash.bashrc'
+        backup_dir = corrn_folder + '/back_up/'
+        
+        # Ensure the backup directory exists
+        sub.run(f'mkdir -p {backup_dir}', shell=True, check=True)
+        
+        # Check if the source file exists
+        sub.run(f'[ -f {source_file} ]', shell=True, check=True)
+        
+        # Copy the file
+        sub.run(f'cp {source_file} {backup_dir}', shell=True, check=True)
+        
+        # List the contents of the backup directory
+        sub.run(f'ls {backup_dir}', shell=True, check=True)
+        
+except sub.CalledProcessError as e:
+  print(f"An error occurred: {e}")
